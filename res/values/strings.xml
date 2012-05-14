@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UF Campus Map</string>
+    <string name="version_string">App Version 1.0.0</string>
+    <string name="copyright">Copyright © 2012 Bri1.Com. All rights reserved.</string>
+    <string name="my_location">My Location</string>
+    <string name="map_view_mode">Map View Mode</string>
+    <string name="search_campus">Search UF Campus</string>
+    <string name="about">About this App</string>
+    <string name="visit_website">Visit Website</string>
+    <string name="close_dialog">Close Dialog</string>
+    <string name="gpl_short_1">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
+    <string name="gpl_short_2">This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</string>
+	<string name="project_url">http://github.com/brianez21/ufcampusmap</string>
+	<string name="gps_required">GPS is not enabled! Please turn it on to use this application.</string>
+	<string name="no_results">No results were found for your search.</string>
+</resources>
