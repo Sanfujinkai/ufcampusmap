@@ -86,9 +86,11 @@ public class LocationHandler {
 	}
 	
 	public static class NoProvidersException extends Exception {
+		private static final long serialVersionUID = 5714734215568938310L;
 	}
 	
 	public static class NoGpsException extends Exception {
+		private static final long serialVersionUID = -5516658194578849379L;
 	}
 	
 }

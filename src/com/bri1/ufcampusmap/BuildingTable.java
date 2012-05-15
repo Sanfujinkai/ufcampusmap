@@ -126,7 +126,7 @@ public class BuildingTable {
 				COLUMN_DESC,
 				COLUMN_URL
 		};
-		Cursor cursor = db.query(TABLE_NAME, columns, "_id = ?", new String[] {new Integer(id).toString()}, null, null, null);
+		Cursor cursor = db.query(TABLE_NAME, columns, "_id = ?", new String[] {Integer.toString(id)}, null, null, null);
 
 		// There must be exactly 1 result for a unique ID lookup
 		if(!cursor.moveToFirst() || cursor.getCount() != 1) {
@@ -155,7 +155,7 @@ public class BuildingTable {
 		// Open the database and submit the query
 		SQLiteDatabase db = new BuildingDatabaseHelper(context).getReadableDatabase();
 		String[] columns = new String[] { COLUMN_ID, COLUMN_LAT, COLUMN_LNG };
-		Cursor cursor = db.query(TABLE_NAME, columns, "_id = ?", new String[] {new Integer(id).toString()}, null, null, null);
+		Cursor cursor = db.query(TABLE_NAME, columns, "_id = ?", new String[] {Integer.toString(id)}, null, null, null);
 
 		// There must be exactly 1 result for a unique ID lookup
 		if(!cursor.moveToFirst() || cursor.getCount() != 1) {
