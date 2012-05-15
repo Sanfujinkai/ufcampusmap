@@ -23,8 +23,8 @@ public final class R {
         public static final int menuMyLocation=0x7f070005;
         public static final int menuSearch=0x7f070006;
         public static final int menuViewMode=0x7f070007;
+        public static final int numResults=0x7f070001;
         public static final int searchField=0x7f070000;
-        public static final int searchNoResults=0x7f070001;
     }
     public static final class layout {
         public static final int buildinglist=0x7f030000;
@@ -47,7 +47,6 @@ public final class R {
         public static final int gps_required=0x7f05000c;
         public static final int map_view_mode=0x7f050004;
         public static final int my_location=0x7f050003;
-        public static final int no_results=0x7f05000d;
         public static final int project_url=0x7f05000b;
         public static final int search_campus=0x7f050005;
         public static final int version_string=0x7f050001;

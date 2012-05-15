@@ -21,6 +21,9 @@ import android.app.Application;
 public class UFCMApplication extends Application {
 
 	public final static String LOG_TAG = "com.bri1.ufcampusmap";
+	public final static int dbInvalidId = -1;
+	public static int dbCurrentId = dbInvalidId;
+	public static boolean followUserLocation = true;
 	
 	@Override
 	public void onCreate() {

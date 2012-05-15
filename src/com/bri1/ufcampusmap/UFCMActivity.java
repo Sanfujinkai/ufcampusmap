@@ -41,40 +41,37 @@ public class UFCMActivity extends MapActivity {
 	private GeoPoint bldgLocation;
 	private LocationHandler lh;
 	private MapTouchOverlay mapTouchOverlay;
-	private boolean followUserLocation = true;
 
 	private final static int DEFAULT_ZOOM_LEVEL = 15;
+	private final static int PINNED_ZOOM_LEVEL = 19;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		// Set up the MapView
 		mapView = (MapView) findViewById(R.id.map_view);
 		mapView.setBuiltInZoomControls(true);
-		mapView.getController().setZoom(DEFAULT_ZOOM_LEVEL);
-		
+
 		// Set up the overlays
 		mapTouchOverlay = new MapTouchOverlay(new MapTouchOverlay.MapTouchHandler() {
 			@Override
 			public void touch() {
-				followUserLocation = false;
+				UFCMApplication.followUserLocation = false;
 			}
 		});
 		updateMapOverlays(mapView);
-		
-		// TODO
-		// newBldgLocation(new GeoPoint((int), (int)));
 	}
-	
+
 	@Override
 	public boolean onSearchRequested() {
+		UFCMApplication.followUserLocation = true;
 		Intent i = new Intent(this, BuildingListActivity.class);
 		startActivity(i);
 		return true;
 	}
-	
+
 	private void updateMapOverlays(MapView mapView) {
 		List<Overlay> overlayList = mapView.getOverlays();
 		overlayList.clear();
@@ -87,8 +84,14 @@ public class UFCMActivity extends MapActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		// Place a pin on the selected building, if there is one
+		if(UFCMApplication.dbCurrentId != UFCMApplication.dbInvalidId) {
+			newBldgLocation(BuildingTable.lookupSingleBuildingGeoPointById(this, UFCMApplication.dbCurrentId));
+		}
+		
+		// Register to get location updates
 		try {
-			// Register to get location updates
 			lh = new LocationHandler(this);
 		} catch(Exception e) {
 			gpsNotAvailable();
@@ -97,10 +100,18 @@ public class UFCMActivity extends MapActivity {
 	
 	@Override
 	protected void onPause() {
-		super.onPause();
+		// Stop location updates
 		lh.stop();
+		super.onPause();
 	}
-
+	
+	@Override
+	protected void onDestroy() {
+		// Really stop location updates
+		lh.stop();
+		super.onDestroy();
+	}
+	
 	private void gpsNotAvailable() {
 		Toast.makeText(this, getString(R.string.gps_required), Toast.LENGTH_LONG).show();
 		Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -112,17 +123,21 @@ public class UFCMActivity extends MapActivity {
 		if(loc != null) {
 			curLocation = new GeoPoint((int)(loc.getLatitude() * 1E6), (int)(loc.getLongitude() * 1E6));
 			updateMapOverlays(mapView);
-			if(followUserLocation)
+			if(UFCMApplication.followUserLocation) {
 				mapView.getController().animateTo(curLocation);
+				mapView.getController().setZoom(DEFAULT_ZOOM_LEVEL);
+			}
 		}
 	}
-	
+
 	private void newBldgLocation(GeoPoint geo) {
 		bldgLocation = geo;
 		updateMapOverlays(mapView);
-		mapView.getController().animateTo(bldgLocation);
-		mapView.getController().setZoom(DEFAULT_ZOOM_LEVEL);
-		followUserLocation = false;
+		if(UFCMApplication.followUserLocation) {
+			mapView.getController().animateTo(bldgLocation);
+			mapView.getController().setZoom(PINNED_ZOOM_LEVEL);
+			UFCMApplication.followUserLocation = false;
+		}
 	}
 
 	@Override
@@ -138,11 +153,12 @@ public class UFCMActivity extends MapActivity {
 			if(curLocation != null) {
 				mapView.getController().animateTo(curLocation);
 				mapView.getController().setZoom(DEFAULT_ZOOM_LEVEL);
-				followUserLocation = true;
+				UFCMApplication.followUserLocation = true;
 			}
 			return true;
 		case R.id.menuSearch:
-			return onSearchRequested();
+			onSearchRequested();
+			return true;
 		case R.id.menuViewMode:
 			mapView.setSatellite(!mapView.isSatellite());
 			return true;
@@ -173,7 +189,7 @@ public class UFCMActivity extends MapActivity {
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
-	
+
 	@Override
 	protected boolean isRouteDisplayed() {
 		return false;

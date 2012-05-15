@@ -26,5 +26,10 @@
             android:name=".BuildingListActivity">
         </activity>
         <uses-library android:name="com.google.android.maps" />
+        <provider
+            android:authorities="com.bri1.ufcampusmap.SearchContentProvider"
+            android:name=".SearchContentProvider"
+            android:exported="false">
+        </provider>
     </application>
 </manifest>
