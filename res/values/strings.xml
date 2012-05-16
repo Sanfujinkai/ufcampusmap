@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">UF Campus Map</string>
-    <string name="version_string">App Version 1.0.0</string>
+    <string name="version_string">App Version 1.1</string>
     <string name="copyright">Copyright © 2012 Bri1.Com. All rights reserved.</string>
     <string name="my_location">My Location</string>
     <string name="map_view_mode">Map View Mode</string>

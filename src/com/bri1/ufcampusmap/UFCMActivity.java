@@ -53,15 +53,6 @@ public class UFCMActivity extends MapActivity {
 		// Set up the MapView
 		mapView = (MapView) findViewById(R.id.map_view);
 		mapView.setBuiltInZoomControls(true);
-
-		// Set up the overlays
-		mapTouchOverlay = new MapTouchOverlay(new MapTouchOverlay.MapTouchHandler() {
-			@Override
-			public void touch() {
-				UFCMApplication.followUserLocation = false;
-			}
-		});
-		updateMapOverlays(mapView);
 	}
 
 	@Override
@@ -96,6 +87,15 @@ public class UFCMActivity extends MapActivity {
 		} catch(Exception e) {
 			gpsNotAvailable();
 		}
+		
+		// Set up the overlays
+		mapTouchOverlay = new MapTouchOverlay(new MapTouchOverlay.MapTouchHandler() {
+			@Override
+			public void touch() {
+				UFCMApplication.followUserLocation = false;
+			}
+		});
+		updateMapOverlays(mapView);
 	}
 	
 	@Override
