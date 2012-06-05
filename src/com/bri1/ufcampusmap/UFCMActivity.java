@@ -101,14 +101,14 @@ public class UFCMActivity extends MapActivity {
 	@Override
 	protected void onPause() {
 		// Stop location updates
-		lh.stop();
+		if(lh != null) lh.stop();
 		super.onPause();
 	}
 	
 	@Override
 	protected void onDestroy() {
 		// Really stop location updates
-		lh.stop();
+		if(lh != null) lh.stop();
 		super.onDestroy();
 	}
 	
