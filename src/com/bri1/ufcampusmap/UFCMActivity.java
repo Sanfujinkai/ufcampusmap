@@ -114,9 +114,9 @@ public class UFCMActivity extends MapActivity {
 	
 	private void gpsNotAvailable() {
 		Toast.makeText(this, getString(R.string.gps_required), Toast.LENGTH_LONG).show();
-		Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-		startActivity(intent);
-		finish();
+		//Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+		//startActivity(intent);
+		//finish();
 	}
 
 	public void newUserLocation(Location loc) {
