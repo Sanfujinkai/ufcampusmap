@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+	<item 
+	    android:id="@+id/action_periods"
+	    android:orderInCategory="20"
+	    android:showAsAction="never"
+	    android:title="@string/action_periods" />
+	
+	<item
+	    android:id="@+id/action_isis"
+	    android:orderInCategory="40"
+	    android:showAsAction="never"
+	    android:title="@string/action_isis" />
+	    
+	<item
+	    android:id="@+id/action_transloc"
+	    android:orderInCategory="40"
+	    android:showAsAction="never"
+	    android:title="@string/action_transloc" />
+    
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="60"
+        android:showAsAction="never"
+        android:title="@string/action_about" />
+
+</menu>
