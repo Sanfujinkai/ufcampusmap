@@ -5,14 +5,13 @@
     <string name="version_string">App Version 2.0</string>
     <string name="copyright">Copyright © 2012&#8211;2013 Brian Nezvadovitz</string>
     <string name="title_map">Campus Map</string>
-    <string name="title_buildings">Buildings</string>
+    <string name="title_buildings">List of Buildings</string>
     <string name="action_clear">Clear pin from map</string>
     <string name="action_pin">Pin location on map</string>
     <string name="action_periods">Class Periods</string>
     <string name="action_isis">Mobile ISIS</string>
     <string name="action_transloc">RTS Bus Locator</string>
     <string name="action_about">About this app</string>
-    <string name="action_settings">Settings</string>
     <string name="title_copyright">Copyright</string>
     <string name="title_license">License</string>
     <string name="title_summer">Summer</string>
@@ -23,8 +22,8 @@
     <string name="license_url">https://gnu.org/licenses/gpl.html</string>
     <string name="google_api_license_info">Google API license info</string>
     <string name="uses_gapis">This app makes use of Google APIs</string>
-	<string name="search_campus">Search by name, address, or code</string>
 	<string name="fallspring_meetings">Classes meet for 50 minutes with a 15-minute break between classes.</string>
 	<string name="summer_meetings">A and B classes meet for 75 minutes with a 15-minute break between classes. C classes meet for 65 minutes within the 75-minute regular summer period.</string>
-	
+	<string name="no_results">Couldn\'t find any buildings with that name, address, or abbreviation.</string>
+
 </resources>

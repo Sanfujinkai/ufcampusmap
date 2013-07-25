@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bri1.ufcampusmap"
-    android:versionCode="4"
+    android:versionCode="0200"
     android:versionName="2.0" >
 
     <uses-sdk
@@ -50,7 +50,12 @@
         
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBVmlh1pGye2Cn2KGchOwt9Loj5Ao_P3A4" />
+            android:value="AIzaSyAYV0xo4ZbnwgY1LcowLnAPR75fBFg-X98" />
+        
+        <provider
+            android:name=".contentprovider.BuildingContentProvider"
+            android:authorities="com.bri1.ufcampusmap.contentprovider"
+            android:exported="false" />
 
     </application>
 
