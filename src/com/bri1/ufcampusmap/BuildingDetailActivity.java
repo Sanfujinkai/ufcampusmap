@@ -18,12 +18,16 @@ package com.bri1.ufcampusmap;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.TreeSet;
+import android.os.Bundle;
+import android.app.Activity;
 
-public class UFCMApplication {
-	
-	public final static String LOG_TAG = "com.bri1.ufcampusmap";
-	
-	public static TreeSet<Long> selectedBuildings = new TreeSet<Long>();
-	
+public class BuildingDetailActivity extends Activity {
+
+	// i.putExtra(BuildingContentProvider.CONTENT_ITEM_TYPE, id);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_about);
+	}
+
 }

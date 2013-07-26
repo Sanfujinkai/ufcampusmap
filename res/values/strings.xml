@@ -6,6 +6,7 @@
     <string name="copyright">Copyright © 2012&#8211;2013 Brian Nezvadovitz</string>
     <string name="title_map">Campus Map</string>
     <string name="title_buildings">List of Buildings</string>
+    <string name="title_details">Building Details</string>
     <string name="action_clear">Clear pin from map</string>
     <string name="action_pin">Pin location on map</string>
     <string name="action_periods">Class Periods</string>
@@ -18,12 +19,15 @@
     <string name="title_fall_spring">Fall/Spring</string>
     <string name="gpl_short_1">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
     <string name="gpl_short_2">This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</string>
-    <string name="project_url">http://src.nezzen.net/ufcampusmap</string>
+    <string name="project_url">https://ufcampusmap.googlecode.com</string>
     <string name="license_url">https://gnu.org/licenses/gpl.html</string>
     <string name="google_api_license_info">Google API license info</string>
     <string name="uses_gapis">This app makes use of Google APIs</string>
 	<string name="fallspring_meetings">Classes meet for 50 minutes with a 15-minute break between classes.</string>
 	<string name="summer_meetings">A and B classes meet for 75 minutes with a 15-minute break between classes. C classes meet for 65 minutes within the 75-minute regular summer period.</string>
 	<string name="no_results">Couldn\'t find any buildings with that name, address, or abbreviation.</string>
-
+	<string name="toast_added">Added Building Pin to Map</string>
+	<string name="toast_removed">Removed Building Pin from Map</string>
+	<string name="toast_empty">No Buildings Currently Pinned</string>
+	
 </resources>

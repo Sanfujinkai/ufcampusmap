@@ -19,6 +19,7 @@ package com.bri1.ufcampusmap;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,16 +29,18 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bri1.ufcampusmap.contentprovider.BuildingContentProvider;
 
@@ -76,6 +79,17 @@ LoaderManager.LoaderCallbacks<Cursor> {
 		// Prepare the loader.  Either re-connect with an existing one,
 		// or start a new one.
 		getLoaderManager().initLoader(0, null, this);
+		
+		// Handle long-presses
+		getListView().setLongClickable(true);
+		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+			public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+				Intent i = new Intent(getActivity(), BuildingDetailActivity.class);
+				i.putExtra(BuildingContentProvider.CONTENT_ITEM_TYPE, id);
+				startActivity(i);
+				return true;
+			}
+		});
 	}
 
 	public static class MySearchView extends SearchView {
@@ -114,6 +128,8 @@ LoaderManager.LoaderCallbacks<Cursor> {
 		// Called when the action bar search text has changed.  Update
 		// the search filter, and restart the loader to do a new query
 		// with this filter.
+		if (!isVisible())
+			return false;
 		String newFilter = !TextUtils.isEmpty(newText) ? newText : null;
 		// Don't do anything if the filter hasn't actually changed.
 		// Prevents restarting the loader when restoring state.
@@ -130,7 +146,7 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public boolean onQueryTextSubmit(String query) {
-		Log.i(UFCMApplication.LOG_TAG, "onQueryTextSubmit: " + query);
+		//Log.i(UFCMApplication.LOG_TAG, "onQueryTextSubmit: " + query);
 		mSearchView.clearFocus();
 		return true;
 	}
@@ -145,15 +161,19 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Insert desired behavior here
-		Log.w(UFCMApplication.LOG_TAG, "Item clicked: " + id);
+		if (UFCMApplication.selectedBuildings.add(id)) {
+			Toast.makeText(getActivity(), getResources().getString(R.string.toast_added), Toast.LENGTH_SHORT).show();
+		} else {
+			UFCMApplication.selectedBuildings.remove(id);
+			Toast.makeText(getActivity(), getResources().getString(R.string.toast_removed), Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		// This is called when a new Loader needs to be created.  This
 		// sample only has one Loader, so we don't care about the ID.
-
-		final String[] columns = new String[] { BuildingTable.COLUMN_ID, BuildingTable.COLUMN_CNAME, BuildingTable.COLUMN_ADDR };
+		final String[] columns = new String[] { BuildingTable.COLUMN_ID,
+				BuildingTable.COLUMN_CNAME, BuildingTable.COLUMN_ADDR };
 		
 		String sortOrder = null;
 		String selection = null;
@@ -195,5 +215,5 @@ LoaderManager.LoaderCallbacks<Cursor> {
 		// longer using it.
 		mAdapter.swapCursor(null);
 	}
-
+	
 }

@@ -41,6 +41,10 @@
             android:name="com.bri1.ufcampusmap.PeriodsActivity"
             android:label="@string/action_periods">
         </activity>
+        <activity
+            android:name="com.bri1.ufcampusmap.BuildingDetailActivity"
+            android:label="@string/title_details">
+        </activity>
 
         <!-- deployment maps API key -->
         <!-- AIzaSyAYV0xo4ZbnwgY1LcowLnAPR75fBFg-X98 -->
@@ -50,7 +54,7 @@
         
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAYV0xo4ZbnwgY1LcowLnAPR75fBFg-X98" />
+            android:value="AIzaSyBVmlh1pGye2Cn2KGchOwt9Loj5Ao_P3A4" />
         
         <provider
             android:name=".contentprovider.BuildingContentProvider"
