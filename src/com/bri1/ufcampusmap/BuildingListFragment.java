@@ -84,9 +84,12 @@ LoaderManager.LoaderCallbacks<Cursor> {
 		getListView().setLongClickable(true);
 		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
-				Intent i = new Intent(getActivity(), BuildingDetailActivity.class);
-				i.putExtra(BuildingContentProvider.CONTENT_ITEM_TYPE, id);
-				startActivity(i);
+				if (UFCMApplication.selectedBuildings.add(id)) {
+					Toast.makeText(getActivity(), getResources().getString(R.string.toast_added), Toast.LENGTH_SHORT).show();
+				} else {
+					UFCMApplication.selectedBuildings.remove(id);
+					Toast.makeText(getActivity(), getResources().getString(R.string.toast_removed), Toast.LENGTH_SHORT).show();
+				}
 				return true;
 			}
 		});
@@ -146,7 +149,6 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public boolean onQueryTextSubmit(String query) {
-		//Log.i(UFCMApplication.LOG_TAG, "onQueryTextSubmit: " + query);
 		mSearchView.clearFocus();
 		return true;
 	}
@@ -161,12 +163,9 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		if (UFCMApplication.selectedBuildings.add(id)) {
-			Toast.makeText(getActivity(), getResources().getString(R.string.toast_added), Toast.LENGTH_SHORT).show();
-		} else {
-			UFCMApplication.selectedBuildings.remove(id);
-			Toast.makeText(getActivity(), getResources().getString(R.string.toast_removed), Toast.LENGTH_SHORT).show();
-		}
+		Intent i = new Intent(getActivity(), BuildingDetailActivity.class);
+		i.putExtra(BuildingContentProvider.CONTENT_ITEM_TYPE, Long.toString(id));
+		startActivity(i);
 	}
 
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {

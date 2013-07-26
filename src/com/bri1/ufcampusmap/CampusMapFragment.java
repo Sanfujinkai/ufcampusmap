@@ -18,6 +18,8 @@ package com.bri1.ufcampusmap;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.Locale;
+
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,44 +36,48 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CampusMapFragment extends SupportMapFragment {
 
 	static final LatLng CAMPUS = new LatLng(29.642, -82.357);
 
-	private GoogleMap map;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
-		map = getMap();
+		final GoogleMap map = getMap();
 		if (null == map) {
 			return view;
 		}
 
 		map.setMyLocationEnabled(true);
 
-		// Move the camera to campus and zoom in instantly
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(CAMPUS, 14));
-
+		// Check if empty, display message to user
 		if (UFCMApplication.selectedBuildings.isEmpty()) {
 			Toast.makeText(getActivity(), getResources().getString(R.string.toast_empty), Toast.LENGTH_SHORT).show();
-			return view; // stop here if no pins
+			// Move the camera to campus and zoom in instantly
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(CAMPUS, 14));
 		}
 
 		LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
 
+		// Place pins
+		Marker marker = null;
 		for (Long id : UFCMApplication.selectedBuildings) {
 			android.util.Log.i(UFCMApplication.LOG_TAG, "Enumerated ID: " + id);
 			Uri uri = Uri.withAppendedPath(BuildingContentProvider.CONTENT_URI,
 					id.toString());
-			final String[] projection = { BuildingTable.COLUMN_CNAME, BuildingTable.COLUMN_LAT, BuildingTable.COLUMN_LNG }; 
+			final String[] projection = { BuildingTable.COLUMN_CNAME, BuildingTable.COLUMN_ABBR, BuildingTable.COLUMN_LAT, BuildingTable.COLUMN_LNG }; 
 			Cursor c = getActivity().getContentResolver().query(uri, projection, null, null, null);
 			if (c.moveToFirst() && c.getCount() == 1) {
-				LatLng p = new LatLng(Double.parseDouble(c.getString(1)), Double.parseDouble(c.getString(2)));
-				map.addMarker(new MarkerOptions().title(c.getString(0)).position(p));
+				LatLng p = new LatLng(Double.parseDouble(c.getString(2)), Double.parseDouble(c.getString(3)));
+				String abbrev = c.getString(1);
+				if (abbrev.length() > 1 && !abbrev.toUpperCase(Locale.US).equals("NONE"))
+					marker = map.addMarker(new MarkerOptions().title(c.getString(0)).snippet(abbrev).position(p));
+				else
+					marker = map.addMarker(new MarkerOptions().title(c.getString(0)).position(p));
 				boundsBuilder.include(p);
 			}
 			c.close();
@@ -90,8 +96,12 @@ public class CampusMapFragment extends SupportMapFragment {
 					map.setOnCameraChangeListener(null);
 				}
 			});
+		} else if (null != marker) {
+			// only if 1 point on map
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 14));
+			marker.showInfoWindow();
 		}
-		
+
 		return view;
 	}
 

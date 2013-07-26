@@ -26,8 +26,11 @@
 	<string name="fallspring_meetings">Classes meet for 50 minutes with a 15-minute break between classes.</string>
 	<string name="summer_meetings">A and B classes meet for 75 minutes with a 15-minute break between classes. C classes meet for 65 minutes within the 75-minute regular summer period.</string>
 	<string name="no_results">Couldn\'t find any buildings with that name, address, or abbreviation.</string>
-	<string name="toast_added">Added Building Pin to Map</string>
-	<string name="toast_removed">Removed Building Pin from Map</string>
-	<string name="toast_empty">No Buildings Currently Pinned</string>
+	<string name="toast_added">Added Building Marker to Map</string>
+	<string name="toast_removed">Removed Building Marker from Map</string>
+	<string name="toast_empty">No Buildings Currently Marked</string>
+	<string name="show_marker_toggle">Show Marker on Map?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
 	
 </resources>

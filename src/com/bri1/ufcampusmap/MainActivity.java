@@ -81,10 +81,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		// Associate appropriate intents with menu items
+		menu.findItem(R.id.action_about).setIntent(new Intent(this, AboutActivity.class));
 		menu.findItem(R.id.action_periods).setIntent(new Intent(this, PeriodsActivity.class));
 		menu.findItem(R.id.action_isis).setIntent(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.isis.ufl.edu/mobile/")));
 		menu.findItem(R.id.action_transloc).setIntent(new Intent(Intent.ACTION_VIEW, Uri.parse("http://ufl.transloc.com/m/")));
-		menu.findItem(R.id.action_about).setIntent(new Intent(this, AboutActivity.class));
 		return true;
 	}
 

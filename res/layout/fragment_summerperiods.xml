@@ -4,7 +4,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/commonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/textview_horizontal_margin"
